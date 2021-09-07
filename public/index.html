@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>Vocacion</title>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <div class="container">
+                <p class="navbar-brand h1" href="#">
+                    Test Vocacional
+                </p>
+            </div>
+        </nav>
+        <div>
+            <form id="mi_form">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Area</label>
+                    <select class="form-select" name="area">
+                        <option value="">ÁREAS</option>
+                        <option value="ARTE">ARTE</option>
+                        <option value="BURO">BUROCRACIA</option>
+                        <option value="CCCO">CIENCIAS DE LA COMUNICACION</option>
+                        <option value="CCEP">CIENCIAS ECONOMICAS Y POLITICAS</option>
+                        <option value="CCFM">CIENCIAS FISICAS Y MATEMATICAS</option>
+                        <option value="CCNA">CIENCIAS NATURALES</option>
+                        <option value="CCSS">CIENCIAS SOCIALES</option>
+                        <option value="FINA">FINANZAS</option>
+                        <option value="IIAA">INSTITUTO ARMADO</option>
+                        <option value="JURI">JURISPRUDENCIA</option>
+                        <option value="LING">LINGÜÍSTICA</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Habito</label>
+                    <select class="form-select" name="habito">
+                        <option value="">HÁBITOS</option>
+                        <option value="ACTITUD FRENTE AL ESTUDIO">ACTITUD FRENTE AL ESTUDIO</option>
+                        <option value="MOTIVACIÓN">MOTIVACIÓN</option>
+                        <option value="USO DEL TIEMPO">USO DEL TIEMPO</option>
+                        <option value="ANSIEDAD">ANSIEDAD</option>
+                        <option value="CONCENTRACIÓN">CONCENTRACIÓN</option>
+                        <option value="PROCESAMIENTO DE LA INFORMACIÓN">PROCESAMIENTO DE LA INFORMACIÓN</option>
+                        <option value="SELECCIÓN DE IDEAS PRINCIPALES">SELECCIÓN DE IDEAS PRINCIPALES</option>
+                        <option value="AYUDAS PARA EL ESTUDIO">AYUDAS PARA EL ESTUDIO</option>
+                        <option value="AUTOEVALUACIÓN">AUTOEVALUACIÓN</option>
+                        <option value="ESTRATEGIAS PARA EL EXAMEN">ESTRATEGIAS PARA EL EXAMEN</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-check-label" for="exampleCheck1">Caracter</label>
+                    <select class="form-select" name="caracter">
+                        <option value="">CARÁCTER</option>
+                        <option value="NERVIOSO">NERVIOSO</option>
+                        <option value="SENTIMENTAL">SENTIMENTAL</option>
+                        <option value="COLÉRICO">COLÉRICO</option>
+                        <option value="PASIONAL">PASIONAL</option>
+                        <option value="SANGUÍNEO">SANGUÍNEO</option>
+                        <option value="FLEMÁTICO">FLEMÁTICO</option>
+                        <option value="AMORFO">AMORFO</option>
+                        <option value="APÁTICO">APÁTICO</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Consultar</button>
+                </div>                
+            </form>
+        </div>
+        <div id="response_box" class="d-none">
+            
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>
