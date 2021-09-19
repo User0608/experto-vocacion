@@ -13,15 +13,29 @@ type Casm struct {
 	PreguntaA string `json:"pregunta_a"`
 	PreguntaB string `json:"pregunta_b"`
 }
+type HEA string
 
 func generateSQLInsert(datos []Casm, w io.StringWriter) {
 	fmt.Printf("Se generaria %d registros\n", len(datos))
-	_, err := w.WriteString("insert into casm(pregunta_a,pregunta_b) values\n")
+	_, err := w.WriteString("insert into berger(pregunta_a,pregunta_b) values\n")
 	if err != nil {
 		log.Fatalln("No se pudo escribir en el archivo1")
 	}
 	for _, c := range datos {
 		_, err := w.WriteString(fmt.Sprintf("('%s','%s'),\n", c.PreguntaA, c.PreguntaB))
+		if err != nil {
+			log.Fatalln("No se pudo escribir en el archivo1")
+		}
+	}
+}
+func generateSQLInsertHEA(datos []HEA, w io.StringWriter) {
+	fmt.Printf("Se generaria %d registros\n", len(datos))
+	_, err := w.WriteString("insert into hea(pregunta) values\n")
+	if err != nil {
+		log.Fatalln("No se pudo escribir en el archivo1")
+	}
+	for _, c := range datos {
+		_, err := w.WriteString(fmt.Sprintf("('%s'),\n", c))
 		if err != nil {
 			log.Fatalln("No se pudo escribir en el archivo1")
 		}
@@ -58,18 +72,36 @@ func prepareCasm(f *os.File) []Casm {
 
 	return datos
 }
+func PrepareHEA(f *os.File) []HEA {
+	reader := bufio.NewReader(f)
+	datos := []HEA{}
+	for {
+		line, err := reader.ReadString('\n')
+		if err == io.EOF {
+			break
+		} else {
+			if err != nil {
+				log.Fatalln("No se pudo continuar:", err.Error())
+			}
+		}
+		datos = append(datos, HEA(strings.TrimSpace(line)))
+	}
+
+	return datos
+}
 
 func main() {
-	file, err := os.OpenFile("casm.txt", os.O_RDONLY, 0777)
+	file, err := os.OpenFile("hea.txt", os.O_RDONLY, 0777)
 	if err != nil {
 		log.Fatalln("No se pudo continuar:", err.Error())
 	}
 	defer file.Close()
-	outFile, err := os.OpenFile("casm_result.sql", os.O_CREATE|os.O_RDWR, 0777)
+	outFile, err := os.OpenFile("hea_result.sql", os.O_CREATE|os.O_RDWR, 0777)
 	if err != nil {
 		log.Fatalln("No se pudo continuar:", err.Error())
 	}
 	defer outFile.Close()
-	generateSQLInsert(prepareCasm(file), outFile)
+	generateSQLInsertHEA(PrepareHEA(file), outFile)
+	//generateSQLInsert(prepareCasm(file), outFile)
 	fmt.Println("OK")
 }

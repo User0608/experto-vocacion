@@ -13,6 +13,7 @@ var ( //db connextion
 	loginRepository      *repository.LoginRepository
 	estudianteRepository *repository.EstudianteRepository
 	casmRepository       *repository.CASMRepository
+	bergerRepository     *repository.BergerRepository
 	//services
 	loginService      *services.LoginService
 	estudianteService *services.EstudianteService

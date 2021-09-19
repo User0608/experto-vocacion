@@ -13,4 +13,5 @@ func questionUpgrader(e *echo.Echo) {
 	g := e.Group(paths.TEST)
 	g.Use(auth.JWTMiddleware)
 	g.GET("/:test_id/casm", auth.RolesMiddleware(h.FindCASMQuestions, roles.ADMIN, roles.USUARIO))
+	g.GET("/:test_id/berger", auth.RolesMiddleware(h.FindBergerQuestions, roles.ADMIN, roles.USUARIO))
 }

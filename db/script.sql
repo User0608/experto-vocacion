@@ -35,7 +35,26 @@ create table test_casm(
 	respuesta_b boolean default false	
 );
 
+create table berger(
+	id serial not null,
+	pregunta_a varchar(500) not null,
+	pregunta_b varchar(500) not null
+);
 
+create table test_berger(
+	test_id integer,
+	berger_id integer,
+	response integer default 0
+);
+create table hea(
+	id serial not null,
+	pregunta varchar(500)	
+);
+create table test_hea(
+	test_id integer not null,
+	hea_id integer not null,
+	respuesta char(1)
+);
 alter table usuario
 	add constraint pk_usuario
 		primary key(username);
@@ -43,6 +62,7 @@ alter table usuario
 alter table estudiante 
 	add constraint fk_estudiante 
 		primary key(id);
+
 
 alter table casm 
 	add constraint pk_casm primary key(id);
@@ -56,6 +76,21 @@ alter table test_casm
 	add constraint pk_test_casm primary key(test_id,casm_id),
 	add constraint fk_test_casm__test foreign key(test_id) references test(id),
 	add constraint fk_test_casm__casm foreign key(casm_id) references casm(id);
+		
+alter table berger 
+	add constraint pk_berger primary key(id);
+
+alter table test_berger
+	add constraint pk_test_berger primary key(test_id,berger_id),
+	add constraint fk_test_berger__test foreign key(test_id)
+		references test(id),
+	add constraint fk_test_berger__berger foreign key(berger_id)
+		references berger(id);
+
+alter table hea
+	add constraint pk_hea primary key(id);
 	
-			
-	
+alter table test_hea
+	add constraint pk_test_hea primary key(test_id,hea_id),
+	add constraint fk_test_hea__test foreign key(test_id) references test(id),
+	add constraint fk_test_hea__hea foreign key(hea_id) references hea(id);

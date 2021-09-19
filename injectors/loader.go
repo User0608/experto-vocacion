@@ -31,11 +31,12 @@ func initRepository(gdb *gorm.DB) {
 	loginRepository = repository.NewLoginRepository(gdb)
 	estudianteRepository = repository.NewEstudianteRepository(gdb)
 	casmRepository = repository.NewCASMRepository(gdb)
+	bergerRepository = repository.NewBergerRepository(gdb)
 }
 func initServices() {
 	loginService = services.NewLoginService(loginRepository)
 	estudianteService = services.NewEstudianteRepository(estudianteRepository)
-	questionService = services.NewQuestionService(casmRepository)
+	questionService = services.NewQuestionService(casmRepository, bergerRepository)
 }
 func initHandlers() {
 	loginHandler = handlers.NewLogginHandler(loginService)

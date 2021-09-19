@@ -141,4 +141,4 @@ insert into casm(pregunta_a,pregunta_b) values
 ('Le gusta dedicar mucho de su tiempo en la escritura de poemas, cuentos; o','Prefiere sentirse importante al saber que de su defensa legal depende la libertad de una persona.'),
 ('Le gustaría dedicarse a la legalización de documentos (contratos, cartas, partidas, títulos, etc.); o','Prefiere ser incorporado en una comisión para redactar un proyecto de ley.'),
 ('Le agrada viajar en un microbús repleto de gente aún cuando no tiene ningún apuro; o','Prefiere esperar otro vehículo.'),
-('Le gusta resolver problemas matemáticos; o','Prefiere diseñar el modelo de casas, edificios, parques, etc...'),
+('Le gusta resolver problemas matemáticos; o','Prefiere diseñar el modelo de casas, edificios, parques, etc...');

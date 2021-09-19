@@ -1,4 +1,5 @@
 -- paginado de preguntas casm
+
 create or replace function preguntas_casm_page(
 	_test_id integer,
 	_items integer,
@@ -9,7 +10,7 @@ create or replace function preguntas_casm_page(
 	question_b varchar(500),
 	answer_a boolean,
 	answer_b boolean,
-	state text	
+	done bool	
 ) as
 $$
 begin
@@ -22,13 +23,43 @@ begin
 		c.pregunta_b as question_b,
 		coalesce(tc.respuesta_a,false) as answer_a,
 		coalesce(tc.respuesta_b,false) as answer_b,
-		case when tc.test_id isnull then 'none'
-		else 'done' end as "state"	
+		case when tc.test_id isnull then false
+		else true end as done
 			from casm c		
 			left join (select tcc.* from test_casm tcc 
 					   where tcc.test_id = _test_id ) tc
 			on c.id = tc.casm_id
 			order by c.id limit _items offset _items*(_page - 1);
+end
+$$
+language plpgsql;
+
+-- pagina para berger
+create or replace function preguntas_berger_page(
+	_test_id integer,_items integer,_page  integer	
+) returns table(
+	id integer,
+	question_a varchar(500),
+	question_b varchar(500),
+	answer integer,	
+	done bool	
+) as
+$$
+begin
+	if (select count(t) from test t where t.id = _test_id) = 0 then
+		return;
+	end if;
+		return query select
+		b.id as id,
+		b.pregunta_a as question_a,
+		b.pregunta_b as question_b,		
+		case when tb.response isnull then 0 else tb.response end as answer,
+		case when tb.test_id isnull then false else true end as done
+			from berger b		
+			left join (select tbb.* from test_berger tbb 
+					   where tbb.test_id = _test_id ) tb
+			on b.id = tb.berger_id
+			order by b.id limit _items offset _items*(_page - 1);
 end
 $$
 language plpgsql;

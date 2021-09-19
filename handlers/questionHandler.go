@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"errors"
 	"net/http"
 	"strconv"
 
@@ -17,29 +18,50 @@ type QuestionHandler struct {
 func NewQuestionHandler(s *services.QuestionService) *QuestionHandler {
 	return &QuestionHandler{service: s}
 }
-
-func (h *QuestionHandler) FindCASMQuestions(c echo.Context) error {
+func (h *QuestionHandler) GetParams(c echo.Context) (int, int, int, error) {
 	numOfItems, err := strconv.Atoi(c.QueryParam("items"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, utils.NewBadResponse("No se especifico el numero de items"))
+		return 0, 0, 0, errors.New("No se especifico el numero de items")
 	}
 	page, err := strconv.Atoi(c.QueryParam("page"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, utils.NewBadResponse("Indique el número de pagina"))
+		return 0, 0, 0, errors.New("Indique el número de pagina")
 	}
 	testID, err := strconv.Atoi(c.Param("test_id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, utils.NewBadResponse("El Test ID es incorrecto"))
+		return 0, 0, 0, errors.New("El Test ID es incorrecto")
+	}
+	return testID, numOfItems, page, nil
+}
+func (h *QuestionHandler) PrepreErrorResponse(c echo.Context, err error) error {
+	if err == errs.ErrDataBaseError {
+		return c.JSON(http.StatusInternalServerError, utils.NewInternalErrorResponse(""))
+	}
+	if err == errs.ErrNothingFind {
+		return c.JSON(http.StatusNotFound, utils.NewNoFindResponse("No se encontro ningun registro"))
+	}
+	return c.JSON(http.StatusBadRequest, utils.NewBadResponse(err.Error()))
+}
+func (h *QuestionHandler) FindCASMQuestions(c echo.Context) error {
+	testID, numOfItems, page, err := h.GetParams(c)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, utils.NewBadResponse(err.Error()))
 	}
 	questions, err := h.service.GetCASMQuestion(testID, numOfItems, page)
 	if err != nil {
-		if err == errs.ErrDataBaseError {
-			return c.JSON(http.StatusInternalServerError, utils.NewInternalErrorResponse(""))
-		}
-		if err == errs.ErrNothingFind {
-			return c.JSON(http.StatusNotFound, utils.NewNoFindResponse("No se encontro ningun registro"))
-		}
+		return h.PrepreErrorResponse(c, err)
+	}
+	return c.JSON(http.StatusOK, utils.NewOkResponse(questions))
+}
+
+func (h *QuestionHandler) FindBergerQuestions(c echo.Context) error {
+	testID, numOfItems, page, err := h.GetParams(c)
+	if err != nil {
 		return c.JSON(http.StatusBadRequest, utils.NewBadResponse(err.Error()))
+	}
+	questions, err := h.service.GetBergerQuestions(testID, numOfItems, page)
+	if err != nil {
+		return h.PrepreErrorResponse(c, err)
 	}
 	return c.JSON(http.StatusOK, utils.NewOkResponse(questions))
 }
