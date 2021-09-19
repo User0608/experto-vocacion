@@ -10,9 +10,9 @@ import (
 
 func estudianteUpgrader(e *echo.Echo) {
 	h := injectors.GetEstudianteHandler()
+	e.POST(paths.ESTUDIANTE, h.Create)
 	group := e.Group(paths.ESTUDIANTE)
 	group.Use(auth.JWTMiddleware)
-	group.POST("", h.Create)
 	group.PUT("", auth.RolesMiddleware(h.Update, roles.USUARIO))
 	group.GET("", auth.RolesMiddleware(h.GetAll, roles.ADMIN))
 	group.GET("/me", auth.RolesMiddleware(h.GetMe, roles.USUARIO))
