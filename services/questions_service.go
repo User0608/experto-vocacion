@@ -29,7 +29,11 @@ func (s *QuestionService) GetCASMQuestion(testID, NumOfItems, Page int) ([]casm.
 	}
 	return s.casm.FindQuestionsByPage(testID, NumOfItems, Page)
 }
-func (s *QuestionService) RegisterCASMQuestionAnswer(answers []casm.TestCasm) (*models.CreateQuestionResponse, error) {
+func (s *QuestionService) RegisterCASMQuestionAnswer(testID int, answers []casm.TestCasm) (*models.CreateQuestionResponse, error) {
+	responses := []casm.TestCasm{}
+	if testID == 0 {
+		return nil, errors.New("Test ID no puede ser 0")
+	}
 	if len(answers) == 0 {
 		return nil, errors.New("Datos no encontrados! No puede ser null")
 	}
@@ -37,8 +41,10 @@ func (s *QuestionService) RegisterCASMQuestionAnswer(answers []casm.TestCasm) (*
 		if err := w.Valid(); err != nil {
 			return nil, fmt.Errorf("%v, registro %d", err, i+1)
 		}
+		w.TestID = testID
+		responses = append(responses, w)
 	}
-	return s.casm.RegisterAnswer(answers)
+	return s.casm.RegisterAnswer(responses)
 }
 
 func (s *QuestionService) GetBergerQuestions(testID, NumOfItems, Page int) ([]berger.BergerQuestion, error) {
@@ -47,7 +53,11 @@ func (s *QuestionService) GetBergerQuestions(testID, NumOfItems, Page int) ([]be
 	}
 	return s.berger.FindQuestionsByPage(testID, NumOfItems, Page)
 }
-func (s *QuestionService) RegisterBergerQuestionAnswer(answers []berger.TestBerger) (*models.CreateQuestionResponse, error) {
+func (s *QuestionService) RegisterBergerQuestionAnswer(testID int, answers []berger.TestBerger) (*models.CreateQuestionResponse, error) {
+	responses := []berger.TestBerger{}
+	if testID == 0 {
+		return nil, errors.New("Test ID no puede ser 0")
+	}
 	if len(answers) == 0 {
 		return nil, errors.New("Datos no encontrados! No puede ser null")
 	}
@@ -55,8 +65,10 @@ func (s *QuestionService) RegisterBergerQuestionAnswer(answers []berger.TestBerg
 		if err := w.Valid(); err != nil {
 			return nil, fmt.Errorf("%v, registro %d", err, i+1)
 		}
+		w.TestID = testID
+		responses = append(responses, w)
 	}
-	return s.berger.RegisterAnswer(answers)
+	return s.berger.RegisterAnswer(responses)
 }
 
 func (s *QuestionService) GetHEAQuestions(testID, NumOfItems, Page int) ([]hea.HEAQuestion, error) {
@@ -66,7 +78,11 @@ func (s *QuestionService) GetHEAQuestions(testID, NumOfItems, Page int) ([]hea.H
 	return s.hea.FindQuestionsByPage(testID, NumOfItems, Page)
 }
 
-func (s *QuestionService) RegisterHEAQuestionAnswer(answers []hea.TestHea) (*models.CreateQuestionResponse, error) {
+func (s *QuestionService) RegisterHEAQuestionAnswer(testID int, answers []hea.TestHea) (*models.CreateQuestionResponse, error) {
+	responses := []hea.TestHea{}
+	if testID == 0 {
+		return nil, errors.New("Test ID no puede ser 0")
+	}
 	if len(answers) == 0 {
 		return nil, errors.New("Datos no encontrados! No puede ser null")
 	}
@@ -74,6 +90,8 @@ func (s *QuestionService) RegisterHEAQuestionAnswer(answers []hea.TestHea) (*mod
 		if err := w.Valid(); err != nil {
 			return nil, fmt.Errorf("%v, registro %d", err, i+1)
 		}
+		w.TestID = testID
+		responses = append(responses, w)
 	}
-	return s.hea.RegisterAnswer(answers)
+	return s.hea.RegisterAnswer(responses)
 }

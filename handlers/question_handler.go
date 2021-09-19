@@ -58,11 +58,15 @@ func (h *QuestionHandler) FindCASMQuestions(c echo.Context) error {
 	return c.JSON(http.StatusOK, utils.NewOkResponse(questions))
 }
 func (h *QuestionHandler) RegisterCASMQuestionAnswer(c echo.Context) error {
+	testID, err := strconv.Atoi(c.Param("test_id"))
+	if err != nil {
+		return c.JSON(http.StatusNotFound, utils.NewBadResponse(""))
+	}
 	answers := []casm.TestCasm{}
 	if err := h.binder.BindBody(c, &answers); err != nil {
 		return c.JSON(http.StatusBadRequest, utils.NewBadResponse("Estructura JSON Invalida!"))
 	}
-	if created, err := h.service.RegisterCASMQuestionAnswer(answers); err != nil {
+	if created, err := h.service.RegisterCASMQuestionAnswer(testID, answers); err != nil {
 		return h.PrepreErrorResponse(c, err)
 	} else {
 		return c.JSON(http.StatusOK, utils.NewOkResponse(created))
@@ -82,11 +86,15 @@ func (h *QuestionHandler) FindBergerQuestions(c echo.Context) error {
 }
 
 func (h *QuestionHandler) RegisterBergerQuestionAnswer(c echo.Context) error {
+	testID, err := strconv.Atoi(c.Param("test_id"))
+	if err != nil {
+		return c.JSON(http.StatusNotFound, utils.NewBadResponse(""))
+	}
 	answers := []berger.TestBerger{}
 	if err := h.binder.BindBody(c, &answers); err != nil {
 		return c.JSON(http.StatusBadRequest, utils.NewBadResponse("Estructura JSON Invalida!"))
 	}
-	if created, err := h.service.RegisterBergerQuestionAnswer(answers); err != nil {
+	if created, err := h.service.RegisterBergerQuestionAnswer(testID, answers); err != nil {
 		return h.PrepreErrorResponse(c, err)
 	} else {
 		return c.JSON(http.StatusOK, utils.NewOkResponse(created))
@@ -105,11 +113,15 @@ func (h *QuestionHandler) FindHEAQuestions(c echo.Context) error {
 	return c.JSON(http.StatusOK, utils.NewOkResponse(questions))
 }
 func (h *QuestionHandler) RegisterHEAQuestionAnswer(c echo.Context) error {
+	testID, err := strconv.Atoi(c.Param("test_id"))
+	if err != nil {
+		return c.JSON(http.StatusNotFound, utils.NewBadResponse(""))
+	}
 	answers := []hea.TestHea{}
 	if err := h.binder.BindBody(c, &answers); err != nil {
 		return c.JSON(http.StatusBadRequest, utils.NewBadResponse("Estructura JSON Invalida!"))
 	}
-	if created, err := h.service.RegisterHEAQuestionAnswer(answers); err != nil {
+	if created, err := h.service.RegisterHEAQuestionAnswer(testID, answers); err != nil {
 		return h.PrepreErrorResponse(c, err)
 	} else {
 		return c.JSON(http.StatusOK, utils.NewOkResponse(created))

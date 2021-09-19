@@ -24,7 +24,7 @@ func (t *TestBerger) Valid() error {
 	if t.BergerID == 0 {
 		return errors.New("Field: `berger_id` Invalido")
 	}
-	if t.TestID == 0 {
+	if t.TestID != 0 {
 		return errors.New("Field: `test_id` Invalido")
 	}
 	return nil

@@ -44,17 +44,15 @@ GET: http://localhost:90/test/:test_id/berger?items=<num_items>&page=<num_pagina
 ## Registro de respuestas CASM
 Enviar un arreglo no nullo, siguiendo la estructura del ejemplo.
 Los datos o preguntas que ya esten respondidas seran omitidas!
-POST: http://localhost:90/test/casm
+POST: http://localhost:90/test/:test_id/casm
 ```json
     [
-        {
-            "test_id":1,
+        {            
             "casm_id":1,
             "answer_a":false,
             "answer_b":true
         },
-        {
-            "test_id":1,
+        {           
             "casm_id":2,
             "answer_a":false,
             "answer_b":true
@@ -86,16 +84,14 @@ por el contrario `num_omitted` son los registros que no se tomaron en cuenta, po
 ## Registro de respuestas BERGER
 Enviar un arreglo no nullo, siguiendo la estructura del ejemplo.
 Los datos o preguntas que ya esten respondidas seran omitidas!
-POST: http://localhost:90/test/berger
+POST: http://localhost:90/test/:test_id/berger
 ```json
     [
         {
-            "test_id":1,
             "berger_id":1,
             "answer":1
         },
         {
-            "test_id":1,
             "berger_id":2,
             "answer":9
         }
@@ -123,21 +119,18 @@ Response: Similar a la de CASM
 ## Registro de respuestas HEA
 Enviar un arreglo no nullo, siguiendo la estructura del ejemplo.
 Los datos o preguntas que ya esten respondidas seran omitidas!
-POST: http://localhost:90/test/hea
+POST: http://localhost:90/test/:test_id/hea
 ```json
     [
         {
-            "test_id":1,
             "hea_id":3,
             "answer":"s"
         },
         {
-            "test_id":1,
             "hea_id":4,
             "answer":"m"
         },
         {
-            "test_id":1,
             "hea_id":5,
             "answer":"p"
         }

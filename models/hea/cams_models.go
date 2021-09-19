@@ -30,7 +30,7 @@ func (t *TestHea) Valid() error {
 	if t.HeaID == 0 {
 		return errors.New("Field: `hea_id` Invalido")
 	}
-	if t.TestID == 0 {
+	if t.TestID != 0 {
 		return errors.New("Field: `test_id` Invalido")
 	}
 	return nil

@@ -16,8 +16,8 @@ func questionUpgrader(e *echo.Echo) {
 	g.GET("/:test_id/berger", auth.RolesMiddleware(h.FindBergerQuestions, roles.ADMIN, roles.USUARIO))
 	g.GET("/:test_id/hea", auth.RolesMiddleware(h.FindHEAQuestions, roles.ADMIN, roles.USUARIO))
 	//create
-	g.POST("/casm", auth.RolesMiddleware(h.RegisterCASMQuestionAnswer, roles.USUARIO, roles.USUARIO))
-	g.POST("/berger", auth.RolesMiddleware(h.RegisterBergerQuestionAnswer, roles.USUARIO, roles.USUARIO))
-	g.POST("/hea", auth.RolesMiddleware(h.RegisterHEAQuestionAnswer, roles.USUARIO, roles.USUARIO))
+	g.POST("/:test_id/casm", auth.RolesMiddleware(h.RegisterCASMQuestionAnswer, roles.USUARIO, roles.USUARIO))
+	g.POST("/:test_id/berger", auth.RolesMiddleware(h.RegisterBergerQuestionAnswer, roles.USUARIO, roles.USUARIO))
+	g.POST("/:test_id/hea", auth.RolesMiddleware(h.RegisterHEAQuestionAnswer, roles.USUARIO, roles.USUARIO))
 
 }

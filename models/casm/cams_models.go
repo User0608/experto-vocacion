@@ -13,7 +13,7 @@ func (t *TestCasm) Valid() error {
 	if t.CasmID == 0 {
 		return errors.New("Field: `casm_id` Invalido")
 	}
-	if t.TestID == 0 {
+	if t.TestID != 0 {
 		return errors.New("Field: `test_id` Invalido")
 	}
 	return nil
