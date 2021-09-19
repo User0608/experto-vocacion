@@ -25,7 +25,8 @@ create table test(
 	resultado_casm text,
 	resultado_berger text,
 	resultado_hea text,
-	estudiante_id int not null
+	estudiante_id int not null,
+	done boolean default false
 );
 
 create table test_casm(

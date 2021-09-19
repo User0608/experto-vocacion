@@ -13,4 +13,6 @@ var (
 	ErrUsernameOrPassword = errors.New("Usuario o contraseña incorrectas!")
 	ErrInvalidData        = errors.New("No se pudo completar la operacion!")
 	ErrNothingFind        = errors.New("No se encontro el registro!")
+	ErrNothingWasDeleted  = errors.New("No se encontro el registro, no se hizo ningun cambio!")
+	ErrInvalidParam       = errors.New("Parametro invalido")
 )

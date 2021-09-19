@@ -3,7 +3,7 @@
 ## Create
 Para registrar un usuario, no es necesario contar con token,
 el path es publico. de forma que cualquiera pueda registrares.
-POST: http://localhost:90/estudiante 
+POST: http://localhost:90/estudiante/create
 ```json
     {
         "nombre": "<name>",

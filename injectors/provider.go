@@ -11,3 +11,6 @@ func GetEstudianteHandler() *handlers.EstudianteHandler {
 func GetQuestionHandler() *handlers.QuestionHandler {
 	return questionHandler
 }
+func GetTestHandler() *handlers.TestHandler {
+	return testHandler
+}

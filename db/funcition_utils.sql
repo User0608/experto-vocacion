@@ -27,3 +27,25 @@ begin
                         raise exception 'La tabla % no existe!, funcion sql `fn_consult`',tablename;
 end;
 $$ language plpgsql;
+
+-- consulta si un test es eliminable o no..
+create or replace function check_test_isnot_used(
+	_test_id int
+) returns boolean 
+as
+$$
+declare 
+		_casm int = 0;
+		_berger integer =0;
+		_hea int =0;
+begin	
+	_casm := (select count(tc) from test_casm tc where tc.test_id =_test_id);
+	_berger := (select count(tc) from test_casm tc where tc.test_id =_test_id);
+	_hea := (select count(th) from test_hea th where th.test_id =_test_id);
+	if _casm !=0 or _berger !=0 or _hea  !=0 then 
+		return false;
+	end if;
+	return true;
+end
+$$
+language plpgsql;

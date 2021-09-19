@@ -15,12 +15,15 @@ var ( //db connextion
 	casmRepository       *repository.CASMRepository
 	bergerRepository     *repository.BergerRepository
 	heaRepository        *repository.HEARepository
+	testRepository       *repository.TestRepository
 	//services
 	loginService      *services.LoginService
 	estudianteService *services.EstudianteService
 	questionService   *services.QuestionService
+	testService       *services.TestService
 	//handlers
 	loginHandler      *handlers.LogginHandler
 	estudianteHandler *handlers.EstudianteHandler
 	questionHandler   *handlers.QuestionHandler
+	testHandler       *handlers.TestHandler
 )

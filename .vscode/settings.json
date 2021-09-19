@@ -4,6 +4,7 @@
         "CASM",
         "clain",
         "flask_restful",
+        "isnot",
         "pyswip",
         "SMPAN",
         "Traget",

@@ -6,4 +6,5 @@ func Upgrade(e *echo.Echo) {
 	logginUpgrader(e)
 	estudianteUpgrader(e)
 	questionUpgrader(e)
+	testUpgrader(e)
 }
