@@ -42,7 +42,7 @@ GET: http://localhost:90/test/:test_id/berger?items=<num_items>&page=<num_pagina
 
  
 ## Registro de respuestas CASM
-Inviar un arreglo no nullo, siguiendo la estructura del ejemplo.
+Enviar un arreglo no nullo, siguiendo la estructura del ejemplo.
 Los datos o preguntas que ya esten respondidas seran omitidas!
 POST: http://localhost:90/test/casm
 ```json
@@ -76,6 +76,91 @@ por el contrario `num_omitted` son los registros que no se tomaron en cuenta, po
                     "casm_id": 4,
                     "answer_a": true,
                     "answer_b": false
+                }
+            ]
+        }
+    }
+```
+
+
+## Registro de respuestas BERGER
+Enviar un arreglo no nullo, siguiendo la estructura del ejemplo.
+Los datos o preguntas que ya esten respondidas seran omitidas!
+POST: http://localhost:90/test/berger
+```json
+    [
+        {
+            "test_id":1,
+            "berger_id":1,
+            "answer":1
+        },
+        {
+            "test_id":1,
+            "berger_id":2,
+            "answer":9
+        }
+    ]
+```
+Response: Similar a la de CASM
+
+```json
+    {
+    "code": "OK",
+    "data": {
+            "num_created": 0,
+            "num_omitted": 4,
+            "created": [
+                {
+                    "test_id":1,
+                    "berger_id":2,
+                    "answer":9
+                }  
+            ]
+        }
+    }
+```
+
+## Registro de respuestas HEA
+Enviar un arreglo no nullo, siguiendo la estructura del ejemplo.
+Los datos o preguntas que ya esten respondidas seran omitidas!
+POST: http://localhost:90/test/hea
+```json
+    [
+        {
+            "test_id":1,
+            "hea_id":3,
+            "answer":"s"
+        },
+        {
+            "test_id":1,
+            "hea_id":4,
+            "answer":"m"
+        },
+        {
+            "test_id":1,
+            "hea_id":5,
+            "answer":"p"
+        }
+    ]
+```
+Response: Similar a la de CASM
+
+```json
+   {
+        "code": "OK",
+        "data": {
+            "num_created": 2,
+            "num_omitted": 1,
+            "created": [
+                {
+                    "test_id": 1,
+                    "hea_id": 4,
+                    "answer": "m"
+                },
+                {
+                    "test_id": 1,
+                    "hea_id": 5,
+                    "answer": "p"
                 }
             ]
         }

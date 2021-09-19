@@ -8,11 +8,6 @@ type TestCasm struct {
 	Respuesta_a bool `json:"answer_a"`
 	Respuesta_b bool `json:"answer_b"`
 }
-type CreateResponse struct {
-	NumCreated int        `json:"num_created"`
-	NumOmitted int        `json:"num_omitted"`
-	Created    []TestCasm `json:"created"`
-}
 
 func (t *TestCasm) Valid() error {
 	if t.CasmID == 0 {

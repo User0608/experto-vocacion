@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/user0608/expertos/errs"
+	"github.com/user0608/expertos/models"
 	"github.com/user0608/expertos/models/casm"
 	"gorm.io/gorm"
 )
@@ -30,7 +31,7 @@ func (r *CASMRepository) FindQuestionsByPage(testID, NumOfItems, Page int) ([]ca
 	}
 	return questions, nil
 }
-func (r *CASMRepository) RegisterAnswer(answer []casm.TestCasm) (*casm.CreateResponse, error) {
+func (r *CASMRepository) RegisterAnswer(answer []casm.TestCasm) (*models.CreateQuestionResponse, error) {
 	created := make([]casm.TestCasm, 0)
 	tx := r.gorm.Begin()
 	defer func() {
@@ -69,7 +70,7 @@ func (r *CASMRepository) RegisterAnswer(answer []casm.TestCasm) (*casm.CreateRes
 		return nil, errs.ErrDataBaseError
 	}
 	createdLen := len(created)
-	return &casm.CreateResponse{
+	return &models.CreateQuestionResponse{
 		NumCreated: createdLen,
 		NumOmitted: len(answer) - createdLen,
 		Created:    created,
