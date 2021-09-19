@@ -30,3 +30,48 @@ func (r *CASMRepository) FindQuestionsByPage(testID, NumOfItems, Page int) ([]ca
 	}
 	return questions, nil
 }
+func (r *CASMRepository) RegisterAnswer(answer []casm.TestCasm) (*casm.CreateResponse, error) {
+	created := make([]casm.TestCasm, 0)
+	tx := r.gorm.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if err := tx.Error; err != nil {
+		log.Println("Error-0:CASMRepository.RegisterAnswer:", err.Error())
+		return nil, errs.ErrDataBaseError
+	}
+	for _, w := range answer {
+		var ok bool
+		row := tx.Raw("select * from fn_consult_insertable_answer('casm',?,?)", w.TestID, w.CasmID).Row()
+		if err := row.Err(); err != nil {
+			tx.Rollback()
+			log.Println("Error-1:CASMRepository.RegisterAnswer:", err.Error())
+			return nil, errs.ErrDataBaseError
+		}
+		if err := row.Scan(&ok); err != nil {
+			tx.Rollback()
+			log.Println("Error-2:CASMRepository.RegisterAnswer:", err.Error())
+			return nil, errs.ErrDataBaseError
+		}
+		if ok {
+			if res := tx.Create(&w); res.Error != nil {
+				tx.Rollback()
+				log.Println("Error-3:CASMRepository.RegisterAnswer:", res.Error.Error())
+				return nil, errs.ErrDataBaseError
+			}
+			created = append(created, w)
+		}
+	}
+	if err := tx.Commit().Error; err != nil {
+		log.Println("Error-4:CASMRepository.RegisterAnswer:", err.Error())
+		return nil, errs.ErrDataBaseError
+	}
+	createdLen := len(created)
+	return &casm.CreateResponse{
+		NumCreated: createdLen,
+		NumOmitted: len(answer) - createdLen,
+		Created:    created,
+	}, nil
+}

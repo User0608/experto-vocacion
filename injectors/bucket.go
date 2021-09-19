@@ -14,6 +14,7 @@ var ( //db connextion
 	estudianteRepository *repository.EstudianteRepository
 	casmRepository       *repository.CASMRepository
 	bergerRepository     *repository.BergerRepository
+	heaRepository        *repository.HEARepository
 	//services
 	loginService      *services.LoginService
 	estudianteService *services.EstudianteService

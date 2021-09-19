@@ -63,3 +63,31 @@ begin
 end
 $$
 language plpgsql;
+
+-- paginado para HEA
+create or replace function preguntas_hea_page(
+	_test_id integer,_items integer,_page  integer	
+) returns table(
+	id integer,
+	question varchar(500),
+	answer char(1),	
+	done bool	
+) as
+$$
+begin
+	if (select count(t) from test t where t.id = _test_id) = 0 then
+		return;
+	end if;
+		return query select
+		h.id as id,
+		h.pregunta as question,
+		case when th.respuesta isnull then '-' else th.respuesta end as answer,
+		case when th.test_id isnull then false else true end as done
+			from hea h		
+			left join (select thh.* from test_hea thh 
+					   where thh.test_id = _test_id ) th
+			on h.id = th.hea_id
+			order by h.id limit _items offset _items*(_page - 1);
+end
+$$
+language plpgsql;

@@ -5,6 +5,7 @@
         "clain",
         "flask_restful",
         "pyswip",
+        "SMPAN",
         "Traget",
         "vocacion"
     ]
