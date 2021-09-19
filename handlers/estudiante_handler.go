@@ -26,10 +26,6 @@ func NewEstudianteService(s *services.EstudianteService) *EstudianteHandler {
 }
 func (h *EstudianteHandler) createUpdate(c echo.Context, action string) error {
 	estudiante := &models.Estudiante{}
-	dni, ok := c.Get(auth.USERNAME_KEY).(string)
-	if !ok {
-		return c.JSON(http.StatusForbidden, utils.NewForbiddenResponse(""))
-	}
 	if err := h.binder.BindBody(c, estudiante); err != nil {
 		if strings.Contains(err.Error(), "parsing time") {
 			return c.JSON(http.StatusBadRequest, utils.NewBadResponse("La fecha debe cumplir el estandar RFC3339, 2021-09-12T00:00:00Z"))
@@ -41,6 +37,10 @@ func (h *EstudianteHandler) createUpdate(c echo.Context, action string) error {
 		return c.JSON(http.StatusBadRequest, utils.NewBadResponse("No puede utilizar el campo ID!"))
 	}
 	if action == "update" {
+		dni, ok := c.Get(auth.USERNAME_KEY).(string)
+		if !ok {
+			return c.JSON(http.StatusForbidden, utils.NewForbiddenResponse(""))
+		}
 		if estudiante.Dni != "" {
 			return c.JSON(http.StatusBadRequest, utils.NewBadResponse("No puede utilizar el campo DNI!"))
 		}
