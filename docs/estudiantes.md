@@ -54,8 +54,16 @@ Respuesta:
         }
     }
 ```
-## Listar
+## Listar 
+:Permisos de administradores son necesarios para esta operacion.
+Devuelve todos es estudiantes registrados
+
+http://localhost:90/estudiante
 
 ## ByID
+:Permisos de administradores son necesarios para esta operacion.
+http://localhost:90/estudiante/:estudiante_id
 
 ## SessionInfo
+Devuelve la informacion del estudiante con session actual en el sistema.
+GET: http://localhost:90/estudiante/me
