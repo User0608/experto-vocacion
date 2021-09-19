@@ -1,0 +1,13 @@
+[Unit]
+Description=Api service for test vocacional
+After=network.target
+
+
+[Service]
+Type=simple
+WorkingDirectory = /services/experto
+ExecStart=/services/experto/vocacionapi
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
