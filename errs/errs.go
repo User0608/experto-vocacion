@@ -15,4 +15,5 @@ var (
 	ErrNothingFind        = errors.New("No se encontro el registro!")
 	ErrNothingWasDeleted  = errors.New("No se encontro el registro, no se hizo ningun cambio!")
 	ErrInvalidParam       = errors.New("Parametro invalido")
+	ErrInnter             = errors.New("Error interno")
 )

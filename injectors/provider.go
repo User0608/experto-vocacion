@@ -14,3 +14,7 @@ func GetQuestionHandler() *handlers.QuestionHandler {
 func GetTestHandler() *handlers.TestHandler {
 	return testHandler
 }
+
+func GetResponseHandler() *handlers.ResponseHandler {
+	return respuestaHandler
+}

@@ -16,14 +16,18 @@ var ( //db connextion
 	bergerRepository     *repository.BergerRepository
 	heaRepository        *repository.HEARepository
 	testRepository       *repository.TestRepository
+	respuestaRepository  *repository.ResponseRepository
 	//services
 	loginService      *services.LoginService
 	estudianteService *services.EstudianteService
 	questionService   *services.QuestionService
 	testService       *services.TestService
+	expertoService    *services.ExpertoService
+	respuestaService  *services.ResponseService
 	//handlers
 	loginHandler      *handlers.LogginHandler
 	estudianteHandler *handlers.EstudianteHandler
 	questionHandler   *handlers.QuestionHandler
 	testHandler       *handlers.TestHandler
+	respuestaHandler  *handlers.ResponseHandler
 )

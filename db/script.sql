@@ -26,9 +26,9 @@ create table test(
 	resultado_berger text,
 	resultado_hea text,
 	estudiante_id int not null,
-	done boolean default false
+	done boolean default false,
+	resultado varchar(500)
 );
-
 create table test_casm(
 	test_id int not null,
 	casm_id int not null,

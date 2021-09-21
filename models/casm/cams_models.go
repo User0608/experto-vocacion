@@ -3,10 +3,17 @@ package casm
 import "errors"
 
 type TestCasm struct {
-	TestID      int  `json:"test_id"`
-	CasmID      int  `json:"casm_id"`
+	TestID int `json:"test_id"`
+	CasmID int `json:"casm_id"`
+	QuestionResponse
+}
+type QuestionResponse struct {
 	Respuesta_a bool `json:"answer_a"`
 	Respuesta_b bool `json:"answer_b"`
+}
+
+func (q *QuestionResponse) TableName() string {
+	return "test_casm"
 }
 
 func (t *TestCasm) Valid() error {
