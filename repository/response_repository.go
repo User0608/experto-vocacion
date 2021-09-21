@@ -27,7 +27,7 @@ func NewResponseRepository(g *gorm.DB) *ResponseRepository {
 
 func (r *ResponseRepository) IsProcessableTest(entity string, testID int) (bool, error) {
 	test := vocacion.Test{}
-	if res := r.gorm.Find(&test); res.Error != nil {
+	if res := r.gorm.Find(&test, testID); res.Error != nil {
 		log.Println("Error-0: ResponseRepository.CheckCompleteAnswers: ", res.Error.Error())
 		return false, errs.ErrDataBaseError
 	} else {
@@ -129,8 +129,6 @@ func (r *ResponseRepository) GenerarHea(testID int) error {
 				return errs.ErrDataBaseError
 			}
 		}
-	} else {
-		return NotOK
 	}
 	return nil
 }
@@ -159,8 +157,6 @@ func (r *ResponseRepository) GenerarBerger(testID int) error {
 				return errs.ErrDataBaseError
 			}
 		}
-	} else {
-		return NotOK
 	}
 	return nil
 }
@@ -191,8 +187,6 @@ func (r *ResponseRepository) GenerarCasm(testID int) error {
 				return errs.ErrDataBaseError
 			}
 		}
-	} else {
-		return NotOK
 	}
 	return nil
 }
