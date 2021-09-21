@@ -136,7 +136,7 @@ func (r *ResponseRepository) GenerarHea(testID int) error {
 }
 func (r *ResponseRepository) GenerarBerger(testID int) error {
 	answers := []berger.TestBerger{}
-	if ok, err := r.IsProcessableTest("casm", testID); err != nil {
+	if ok, err := r.IsProcessableTest("berger", testID); err != nil {
 		return err
 	} else if ok {
 		res := r.gorm.Find(&answers, "test_id = ?", testID)
